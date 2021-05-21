@@ -1,0 +1,23 @@
+
+<script>
+    var list = [
+      "http://isweb.joongbu.ac.kr/~jgm/photo/sissor.jpeg", 
+      "http://isweb.joongbu.ac.kr/~jgm/photo/rock.jpeg", 
+      "http://isweb.joongbu.ac.kr/~solbi/images/%EB%B3%B4.jpg"
+    ]; // 가위 바위 보
+  
+    function test() { // test 함수
+        var pick = Math.floor(Math.random() * 3); // 0~2 랜덤 뽑기 
+        location.href = list[pick]; // 랜덤으로 뽑은 수로 링크 선택 (가위, 바위, 보 중 하나)
+    } 
+</script>
+
+<meta charset="utf-8"> <!-- 글자 깨짐 방지 -->
+
+<img src=""> <!-- 이미지 태그 -->
+
+<!-- 
+주석
+-->
+
+<button onclick="test()">가위바위보</button> <!-- 버튼 (누르면 test 함수 실행) -->
