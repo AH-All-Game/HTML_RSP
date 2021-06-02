@@ -1,23 +1,73 @@
+<meta charset="utf-8">
+
+<pre>
+[<span id="winCount">0</span>연승] <h1>결과: <span id="winText">없음</span></h1>
+</pre>
+
+<pre>
+<h1>      나              상대</h1>
+</pre>
+
+<img id="me" src="https://r1.community.samsung.com/t5/image/serverpage/image-id/702454i1D28BBCB475C2D36/image-size/large?v=1.0&px=999">
+
+<img id="bot" src="https://r1.community.samsung.com/t5/image/serverpage/image-id/702454i1D28BBCB475C2D36/image-size/large?v=1.0&px=999">
+
+<div id="buttons" style="display:inline;">
+    <button onclick="rsp(0)" style="width:60pt;height:27.5pt;">가위</button>
+    </br>
+    </br>
+    <button onclick="rsp(1)" style="width:60pt;height:27.5pt;">바위</button>
+    </br>
+    </br>
+    <button onclick="rsp(2)" style="width:60pt;height:27.5pt;">보</button>
+</div>
+
+<style>
+    img { width:200px; height:150px; border:1px solid red; float:left; margin-right:10px; }
+</style>
 
 <script>
-    var list = [
-      "http://isweb.joongbu.ac.kr/~jgm/photo/sissor.jpeg", 
-      "http://isweb.joongbu.ac.kr/~jgm/photo/rock.jpeg", 
-      "http://isweb.joongbu.ac.kr/~solbi/images/%EB%B3%B4.jpg"
-    ]; // 가위 바위 보
-  
-    function test() { // test 함수
-        var pick = Math.floor(Math.random() * 3); // 0~2 랜덤 뽑기 
-        location.href = list[pick]; // 랜덤으로 뽑은 수로 링크 선택 (가위, 바위, 보 중 하나)
+    let gameFinish = false;  // 게임 종료 확인
+    let gameScore, winCount = 0;  // 점수 및 연승
+    let list = [
+        "https://i.ibb.co/QF8z8Q6/871488.jpg", 
+        "https://i.ibb.co/wW8yQhw/871488.jpg", 
+        "https://i.ibb.co/Ykds2fx/image.jpg"
+    ]; // 가위 바위 보 이미지
+
+    function rsp(myChoise) { 
+
+        if(!gameFinish) {
+
+            let bot = Math.floor(Math.random() * 3);
+
+            document.getElementById("me").src = list[myChoise]; 
+            document.getElementById("bot").src = list[bot];
+
+            let win = myChoise - bot;
+
+            if(win === -1 || win === 2) {
+
+                gameFinish = true;
+                document.getElementById("winText").innerText = "패배";
+                document.getElementById("buttons").style = "display:none;";
+                setTimeout(() => endGame(), 1000);
+
+            } else if(win === 1 || win === -2) {
+
+                winCount++;
+                document.getElementById("winText").innerText = "승리";
+                document.getElementById("winCount").innerText = winCount;
+
+            } else document.getElementById("winText").innerText = "무승부";
+
+        } else {
+            alert("[E1] 게임이 종료되었습니다.");
+        }
     } 
+
+    function endGame() {
+        alert("게임 종료!\n\n" + winCount + "연승");
+        location.href = "./rsp.html";
+    }
 </script>
-
-<meta charset="utf-8"> <!-- 글자 깨짐 방지 -->
-
-<img src=""> <!-- 이미지 태그 -->
-
-<!-- 
-주석
--->
-
-<button onclick="test()">가위바위보</button> <!-- 버튼 (누르면 test 함수 실행) -->
