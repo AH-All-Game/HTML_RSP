@@ -1,30 +1,41 @@
-<meta charset="utf-8">
+<head><meta charset="utf-8">
 
-<pre>
-[<span id="winCount">0</span>연승] <h1>결과: <span id="winText">없음</span></h1>
-</pre>
-
-<pre>
-<h1>      나              상대</h1>
-</pre>
-
-<img id="me" src="https://r1.community.samsung.com/t5/image/serverpage/image-id/702454i1D28BBCB475C2D36/image-size/large?v=1.0&px=999">
-
-<img id="bot" src="https://r1.community.samsung.com/t5/image/serverpage/image-id/702454i1D28BBCB475C2D36/image-size/large?v=1.0&px=999">
-
-<div id="buttons" style="display:inline;">
-    <button onclick="rsp(0)" style="width:60pt;height:27.5pt;">가위</button>
-    </br>
-    </br>
-    <button onclick="rsp(1)" style="width:60pt;height:27.5pt;">바위</button>
-    </br>
-    </br>
-    <button onclick="rsp(2)" style="width:60pt;height:27.5pt;">보</button>
-</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://tistory4.daumcdn.net/tistory/3134841/skin/images/confetti_v2.js"></script>
 
 <style>
-    img { width:200px; height:150px; border:1px solid red; float:left; margin-right:10px; }
+	canvas{z-index:10;pointer-events: none;position: fixed;top: 0;transform: scale(1.1);}
 </style>
+
+</head><body style=""><div class="buttonContainer" style="display:none">
+	<button class="canvasBtn" id="stopButton"></button>
+	<button class="canvasBtn" id="startButton"></button>	
+</div>
+
+<canvas id="canvas" width="449" height="760"></canvas>
+
+<h3>[ <span id="winCount">1</span>연승 ]</h3> 
+<pre><h1>상태: <span id="winText">패배</span></h1>
+</pre>
+
+<pre><h1>      나              상대</h1>
+</pre>
+
+<img id="me" style="width:200px; height:200px; border:2px dashed blue; float:left; margin-right:10px;" src="https://i.ibb.co/wW8yQhw/871488.jpg"> 
+
+<img id="bot" style="width:200px; height:200px; border:2px dashed red; float:left; margin-right:10px;" src="https://i.ibb.co/Ykds2fx/image.jpg">
+
+<div id="buttons" style="display: none;">
+    <button onclick="rsp(0)" style="width:60pt;height:30pt;"><b>가위</b></button>
+    <br>
+    <br>
+    <br>
+    <button onclick="rsp(1)" style="width:60pt;height:30pt;"><b>바위</b></button>
+    <br>
+    <br>
+    <br>
+    <button onclick="rsp(2)" style="width:60pt;height:30pt;"><b>보</b></button>
+</div>
 
 <script>
     let gameFinish = false;  // 게임 종료 확인
@@ -46,18 +57,21 @@
 
             let win = myChoise - bot;
 
-            if(win === -1 || win === 2) {
+            if (win === -1 || win === 2) {
 
                 gameFinish = true;
                 document.getElementById("winText").innerText = "패배";
                 document.getElementById("buttons").style = "display:none;";
                 setTimeout(() => endGame(), 1000);
 
-            } else if(win === 1 || win === -2) {
+            } else if (win === 1 || win === -2) {
 
-                winCount++;
+                $("#startButton").trigger("click");
+                setTimeout(function(){
+                    $("#stopButton").trigger("click");
+                }, 2000);
                 document.getElementById("winText").innerText = "승리";
-                document.getElementById("winCount").innerText = winCount;
+                document.getElementById("winCount").innerText = ++winCount;
 
             } else document.getElementById("winText").innerText = "무승부";
 
@@ -67,7 +81,32 @@
     } 
 
     function endGame() {
-        alert("게임 종료!\n\n" + winCount + "연승");
-        location.href = "./rsp.html";
+        if (confirm("게임 종료!\n[" + winCount + "연승]\n\n순위에 등록 하시겠습니까?")) {
+            rankSave();
+        } else location.href = "./rsp.html";
     }
-</script>
+
+    function rankSave() {
+        let nickname = prompt("닉네임을 입력하세요.", "");
+        if (nickname) {
+            xhr = new XMLHttpRequest();
+            xhr.open("post", "saveData.php", true);
+            xhr.onreadystatechange = function() { //폴백
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) { //200은 잘넘어왔단 것이다.
+                        alert(xhr.responseText);
+                        location.href = "./rsp.html";
+                    } else {
+                        alert("요청오류 : " + xhr.status);
+                        location.href = "./rsp.html";
+                    }
+                }
+            }
+            //post방식은 xhr객체에 데이터를 붙여서 전송
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("nickname=" + nickname + "&winCount=" + winCount); 
+        } else {
+            location.href = "./rsp.html";
+        }
+    }
+</script></body>
