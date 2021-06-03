@@ -5,6 +5,7 @@
 
 <style>
 	canvas{z-index:10;pointer-events: none;position: fixed;top: 0;transform: scale(1.1);}
+	.parent {text-align: center;}
 </style>
 
 </head><body style=""><div class="buttonContainer" style="display:none">
@@ -13,31 +14,34 @@
 </div>
 
 <canvas id="canvas" width="449" height="760"></canvas>
+	
+<div class="parent">
 
-<h3>[ <span id="winCount">0</span>연승 ]</h3> 
-<pre><h1>상태: <span id="winText">없음</span></h1>
-</pre>
+	<h3>[ <span id="winCount">0</span>연승 ]</h3> 
+	<pre><h1>상태: <span id="winText">없음</span></h1>
+	</pre>
 
-<pre>
-<h1>      나          상대</h1>
-</pre>
+	<pre>
+	<h1>      나          상대</h1>
+	</pre>
 
-<img id="me" style="width:200px; height:200px; border:2px dashed blue; float:left; margin-right:10px;" src="https://i.pinimg.com/originals/1f/d9/a3/1fd9a343ca11d1486504a93f5bfc5232.gif"> 
+	<img id="me" style="width:200px; height:200px; border:2px dashed blue; float:left; margin-right:10px;" src="https://i.pinimg.com/originals/1f/d9/a3/1fd9a343ca11d1486504a93f5bfc5232.gif"> 
 
-<img id="bot" style="width:200px; height:200px; border:2px dashed red; float:left; margin-right:10px;" src="https://i.pinimg.com/originals/1f/d9/a3/1fd9a343ca11d1486504a93f5bfc5232.gif">
+	<img id="bot" style="width:200px; height:200px; border:2px dashed red; float:left; margin-right:10px;" src="https://i.pinimg.com/originals/1f/d9/a3/1fd9a343ca11d1486504a93f5bfc5232.gif">
 
-<div id="buttons" style="display: inline;">
-    <button onclick="rsp(0)" style="width:60pt;height:30pt;"><b>가위</b></button>
-    <br>
-    <br>
-    <br>
-    <button onclick="rsp(1)" style="width:60pt;height:30pt;"><b>바위</b></button>
-    <br>
-    <br>
-    <br>
-    <button onclick="rsp(2)" style="width:60pt;height:30pt;"><b>보</b></button>
+	<div id="buttons" style="display: inline;">
+	    <button onclick="rsp(0)" style="width:60pt;height:30pt;"><b>가위</b></button>
+	    <br>
+	    <br>
+	    <br>
+	    <button onclick="rsp(1)" style="width:60pt;height:30pt;"><b>바위</b></button>
+	    <br>
+	    <br>
+	    <br>
+	    <button onclick="rsp(2)" style="width:60pt;height:30pt;"><b>보</b></button>
+	</div>
 </div>
-
+	
 <script>
     let gameFinish = false;  // 게임 종료 확인
     let gameScore, winCount = 0;  // 점수 및 연승
