@@ -5,7 +5,6 @@
 
 <style>
 	canvas{z-index:10;pointer-events: none;position: fixed;top: 0;transform: scale(1.1);}
-	.parent {text-align: center;}
 </style>
 
 </head><body style=""><div class="buttonContainer" style="display:none">
@@ -14,8 +13,6 @@
 </div>
 
 <canvas id="canvas" width="449" height="760"></canvas>
-	
-<div class="parent">
 
 	<h3>[ <span id="winCount">0</span>연승 ]</h3> 
 	<pre><h1>상태: <span id="winText">없음</span></h1>
@@ -25,9 +22,9 @@
 	<h1>      나          상대</h1>
 	</pre>
 
-	<img id="me" style="width:200px; height:200px; border:2px dashed blue; float:left; margin-right:10px; text-align: center;" src="https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif"> 
+	<img id="me" style="width:200px; height:200px; border:2px dashed blue; float:left; margin-right:10px;" src="https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif"> 
 
-	<img id="bot" style="width:200px; height:200px; border:2px dashed red; float:left; margin-right:10px; text-align: center;" src="https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif">
+	<img id="bot" style="width:200px; height:200px; border:2px dashed red; float:left; margin-right:10px;" src="https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif">
 
 	<div id="buttons" style="display: inline;">
 	    <button onclick="rsp(0)" style="width:60pt;height:30pt;"><b>가위</b></button>
@@ -39,7 +36,6 @@
 	    <br>
 	    <br>
 	    <button onclick="rsp(2)" style="width:60pt;height:30pt;"><b>보</b></button>
-	</div>
 </div>
 	
 <script>
