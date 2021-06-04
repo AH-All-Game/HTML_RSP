@@ -94,7 +94,7 @@
             xhr.open("post", "saveData.php", true);
             xhr.onreadystatechange = function() { //폴백
                 if (xhr.readyState == 4) {
-                    if (xhr.status == 200) { .
+                    if (xhr.status == 200) {
                         alert(xhr.responseText);
                         location.href = "./rsp.html";
                     } else {
