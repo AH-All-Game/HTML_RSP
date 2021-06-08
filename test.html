@@ -160,12 +160,12 @@
                         document.getElementById("bot").src = "https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif";
                     }, 1000);
 
-                    myHp--;
+                    --myHp;
 
                     document.getElementById("winText").innerText = "패배";
 
                     if (myHp > 3) {
-                        document.getElementById("hp").innerText = "💖".repeat(myHp);
+                        document.getElementById("hp").innerText = "💖" + "💛".repeat(3-myHp);
                     } else {
                         document.getElementById("hp").innerText = "💖".repeat(myHp) + "💔".repeat(3-myHp);   
                     }
@@ -186,9 +186,9 @@
                     document.getElementById("winCount").innerText = ++winCount;
                     
                     if (winCount % 1 == 0) {
-                        myHp++;
+                        ++myHp;
                         if (myHp > 3) {
-                            document.getElementById("hp").innerText = "💖".repeat(myHp);
+                            document.getElementById("hp").innerText = "💖" + "💛".repeat(3-myHp);
                         } else {
                             document.getElementById("hp").innerText = "💖".repeat(myHp) + "💔".repeat(3-myHp);   
                         }
