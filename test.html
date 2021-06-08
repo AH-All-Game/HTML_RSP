@@ -89,10 +89,6 @@
     
     <canvas id="canvas" width="449" height="760"></canvas>
 
-
-
-    
-
     <div class="music_player" style="text-align: right;">
         <img src="play.png" onclick="stop()" class="music" id="play" style="display: none;">
         <img src="stop.png" onclick="play()" class="music" id="stop" style="display: inline;">
@@ -165,9 +161,9 @@
                     document.getElementById("winText").innerText = "패배";
 
                     if (myHp > 3) {
-                        document.getElementById("hp").innerText = "💖".repeat(3) + "💛".repeat(3-myHp);
+                        document.getElementById("hp").innerText = '💖💖💖' + '💛'.repeat(myHp-3);
                     } else {
-                        document.getElementById("hp").innerText = "💖".repeat(myHp) + "💔".repeat(3-myHp);   
+                        document.getElementById("hp").innerText = '💖'.repeat(myHp) + '💔'.repeat(3-myHp);   
                     }
 
                     if (myHp == 0) {
@@ -185,12 +181,12 @@
                     document.getElementById("winText").innerText = "승리";
                     document.getElementById("winCount").innerText = ++winCount;
                     
-                    if (winCount % 1 == 0) {
+                    if (winCount % 5 == 0) {
                         ++myHp;
                         if (myHp > 3) {
-                            document.getElementById("hp").innerText = "💖".repeat(3) + "💛".repeat(3-myHp);
+                            document.getElementById("hp").innerText = '💖💖💖' + '💛'.repeat(myHp-3);
                         } else {
-                            document.getElementById("hp").innerText = "💖".repeat(myHp) + "💔".repeat(3-myHp);   
+                            document.getElementById("hp").innerText = '💖'.repeat(myHp) + '💔'.repeat(3-myHp);   
                         }
                     }
     
