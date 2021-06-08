@@ -182,8 +182,12 @@
                     document.getElementById("winCount").innerText = ++winCount;
                     
                     if (winCount % 1 == 0) {
-                        ++myHp;
-                        document.getElementById("hp").innerText = "💖".repeat(myHp) + "💔".repeat(3-myHp);
+                        myHp++;
+                        if (myHp > 3) {
+                            document.getElementById("hp").innerText = "💖".repeat(myHp);
+                        } else {
+                            document.getElementById("hp").innerText = "💖".repeat(myHp) + "💔".repeat(3-myHp);   
+                        }
                     }
     
                 } else {                    
