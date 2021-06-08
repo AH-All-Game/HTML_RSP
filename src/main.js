@@ -78,7 +78,7 @@ function rsp(myChoise) {
 }
 
 function endGame() {
-    if (confirm("게임 종료!\n[" + winCount + "연승]\n\n랭킹에 등록하시겠습니까?")) {
+    if (confirm("게임 종료!\n[" + winCount + "승]\n\n랭킹에 등록하시겠습니까?")) {
         rankSave();
     } else {
         resetGame();
