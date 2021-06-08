@@ -91,25 +91,25 @@
 
 
 
-    <h3>[ <span id="winCount">0</span>연승 ]</h3> 
+    
 
     <div class="music_player" style="text-align: right;">
         <img src="play.png" onclick="stop()" class="music" id="play" style="display: none;">
         <img src="stop.png" onclick="play()" class="music" id="stop" style="display: inline;">
     </div>
-    
-    <pre><h1>상태: <span id="winText">없음</span></h1>
-    </pre>
 
     <div style="text-align: center;">
+
+        <h3>[ <span id="winCount">0</span>승 ] - <span id="hp">💖💖💖</span></h3> 
+        <h1>상태: <span id="winText">없음</span></h1>
 
         <div class="flip-card">
             <div class="flip-card-inner">
               <div class="flip-card-front">
-                <img class="bot" id="bot_ready" src="https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif">
+                <img class="bot" id="bot_ready" src="https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif">
               </div>
               <div class="flip-card-back">
-                <img class="bot" id="bot" src="https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif">
+                <img class="bot" id="bot" src="https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif">
               </div>
             </div>
         </div>
@@ -132,9 +132,9 @@
             $(".flip-card-inner").css("transform", "rotateY(180deg)");
         });
 
-
         let gameFinish = false;  // 게임 종료 확인
-        let gameScore, winCount = 0;  // 점수 및 연승
+        let winCount = 0;  // 점수 및 연승
+        let myHp = 3;
         let list = [
             "https://i.ibb.co/QF8z8Q6/871488.jpg", 
             "https://i.ibb.co/wW8yQhw/871488.jpg", 
@@ -154,12 +154,23 @@
                 let win = myChoise - bot;
     
                 if (win === -1 || win === 2) {
-    
-                    gameFinish = true;
+
+                    setTimeout(function(){
+                        $(".flip-card-inner").css("transform", "rotateY(-180deg)");
+                        document.getElementById("bot").src = "https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif";
+                    }, 1000);
+
+                    --myHp;
+
                     document.getElementById("winText").innerText = "패배";
-                    document.getElementById("buttons").style = "display:none;";
-                    setTimeout(() => endGame(), 1000);
-    
+
+                    document.getElementById("hp").innerText = "💖".repeat(myHp) + "💔".repeat(3-myHp);
+
+                    if (myHp == 0) {
+                        gameFinish = true;
+                        setTimeout(() => endGame(), 1000);
+                    }
+
                 } else if (win === 1 || win === -2) {
     
                     $("#startButton").trigger("click");
@@ -172,7 +183,7 @@
 
                     setTimeout(function(){
                         $(".flip-card-inner").css("transform", "rotateY(-180deg)");
-                        document.getElementById("bot").src = "https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif";
+                        document.getElementById("bot").src = "https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif";
                     }, 1000);
     
                 } else {
@@ -180,7 +191,7 @@
                     
                     setTimeout(function(){
                         $(".flip-card-inner").css("transform", "rotateY(-180deg)");
-                        document.getElementById("bot").src = "https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif";
+                        document.getElementById("bot").src = "https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif";
                     }, 1000);
                 }
     
@@ -193,13 +204,7 @@
             if (confirm("게임 종료!\n[" + winCount + "연승]\n\n순위에 등록 하시겠습니까?")) {
                 rankSave();
             } else {
-                winCount = 0;
-                gameScore = 0;
-                gameFinish = false;
-                document.getElementById("bot").src = "https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif";
-                document.getElementById("winText").innerText = "없음";
-                document.getElementById("winCount").innerText = "0";
-                document.getElementById("buttons").style = "display:inline;";
+                resetGame();
             };
         }
     
@@ -212,22 +217,10 @@
                     if (xhr.readyState == 4) {
                         if (xhr.status == 200) {
                             alert(xhr.responseText);
-                            winCount = 0;
-                            gameScore = 0;
-                            gameFinish = false;
-                            document.getElementById("bot").src = "https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif";
-                            document.getElementById("winText").innerText = "없음";
-                            document.getElementById("winCount").innerText = "0";
-                            document.getElementById("buttons").style = "display:inline;";
+                            resetGame();
                         } else {
                             alert("서버오류 : " + xhr.status);
-                            winCount = 0;
-                            gameScore = 0;
-                            gameFinish = false;
-                            document.getElementById("bot").src = "https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif";
-                            document.getElementById("winText").innerText = "없음";
-                            document.getElementById("winCount").innerText = "0";
-                            document.getElementById("buttons").style = "display:inline;";
+                            resetGame();
                         }
                     }
                 }
@@ -235,14 +228,18 @@
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.send("nickname=" + nickname + "&winCount=" + winCount); 
             } else {
-                winCount = 0;
-                gameScore = 0;
-                gameFinish = false;
-                document.getElementById("bot").src = "https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif";
-                document.getElementById("winText").innerText = "없음";
-                document.getElementById("winCount").innerText = "0";
-                document.getElementById("buttons").style = "display:inline;";
+                resetGame();
             }
+        }
+
+        function resetGame() {
+            winCount = 0;
+            myHp = 3;
+            gameFinish = false;
+            document.getElementById("bot").src = "https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif";
+            document.getElementById("winText").innerText = "없음";
+            document.getElementById("winCount").innerText = "0";
+            document.getElementById("hp").innerText = "💖💖💖";
         }
 
         var audio = new Audio('https://www.sellbuymusic.com/upload/music/0000000369/584622080769205.mp3');
