@@ -78,7 +78,7 @@ function rsp(myChoise) {
 }
 
 function endGame() {
-    if (confirm("게임 종료!\n[" + winCount + "연승]\n\n순위에 등록 하시겠습니까?")) {
+    if (confirm("게임 종료!\n[" + winCount + "연승]\n\n랭킹에 등록하시겠습니까?")) {
         rankSave();
     } else {
         resetGame();
@@ -108,7 +108,7 @@ function stop() {
 }
 
 function rankSave() {
-    let nickname = prompt("닉네임을 입력하세요.", "");
+    let nickname = prompt("등록할 닉네임을 입력해주세요.", "");
     if (nickname) {
         xhr = new XMLHttpRequest();
         xhr.open("post", "saveData.php", true);
