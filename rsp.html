@@ -28,6 +28,10 @@
             height: 40px;
             transform-origin: 50% 50%;
         }
+        
+        .music play {
+            animation: rotate_image 10s linear infinite;
+        }
 
         img.bot {
             width: 150px;
@@ -81,6 +85,12 @@
             background-color: transparent;
             color: white;
             transform: rotateY(180deg);
+        }
+        
+        @keyframes rotate_image{
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
