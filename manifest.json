@@ -1,0 +1,11 @@
+{ 
+  "name": "RSP - AllGame", 
+  "short_name": "RSP", 
+  "start_url": "./rsp.html", 
+  "display": "standalone", 
+  "icons": [{ 
+    "src": "https://ah-all-game.github.io/HTML_RSP/src/sci.PNG", 
+    "sizes": "284x284", 
+    "type": "image/png" 
+  }]
+} 
