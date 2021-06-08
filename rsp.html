@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel='stylesheet' id='fontawesome-css' href='https://use.fontawesome.com/releases/v5.0.1/css/all.css?ver=4.9.1' type='text/css' media='all' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://tistory4.daumcdn.net/tistory/3134841/skin/images/confetti_v2.js"></script>
+    <script src="src/main.js"></script>
+    <meta property="og:description" content="Snakely | 게임제작과 올겜">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="http://elif.team/ahyeon/snakely/logo_284x284.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="http://elif.team/ahyeon/snakely/bb3dde41d97f19be8ab7b4780a915d5e.css" defer="">
+    <style>
+        canvas {
+            z-index:10;
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            transform: scale(1.1);
+        }
+
+        .music {
+            width: 40px;
+            height: 40px;
+            transform-origin: 50% 50%;
+        }
+
+        img.bot {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 8px double rgb(0, 0, 0);
+        }
+
+        img.choise {
+            width: 90px;
+            height: 90px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 2px solid rgb(0, 0, 0);
+        }
+
+        .flip-card {
+            text-align: center;
+            margin: auto;
+            width: 300px;
+            height: 200px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.3s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .flip-card-front {
+            background-color: transparent;
+            color: rgb(255, 255, 255);
+        }
+
+        .flip-card-back {
+            background-color: transparent;
+            color: white;
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+    
+<body style="background-color: cornflowerblue;">
+
+    <!-- 승리 폭죽 -->
+    
+    <div class="buttonContainer" style="display:none">
+        <button class="canvasBtn" id="stopButton"></button>
+        <button class="canvasBtn" id="startButton"></button>	
+    </div>
+
+    <canvas id="canvas" width="449" height="760"></canvas>
+
+    <!-- 음악 플레이어 -->
+
+    <div class="music_player" style="text-align: right;">
+        <img src="src/play.png" onclick="stop()" class="music" id="play" style="display: none;">
+        <img src="src/stop.png" onclick="play()" class="music" id="stop" style="display: inline;">
+    </div>
+
+    <!-- 게임 화면 -->
+
+    <div style="text-align: center;">
+        <h3>[ <span id="winCount">0</span>승 ] - <span id="hp">💖💖💖</span></h3> 
+        <h1>승패: <span id="winText">없음</span></h1>
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img class="bot" id="bot_ready" src="https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif">
+                </div>
+                <div class="flip-card-back">
+                    <img class="bot" id="bot" src="https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif">
+                </div>
+            </div>
+        </div>
+
+        
+
+        <img class="choise" id="sci" onclick="rsp(0)" hspace=100 src="src/sci.PNG">
+        <img class="choise" id="roc" onclick="rsp(1)" src="src/rock.PNG">
+        <img class="choise" id="pap" onclick="rsp(2)" hspace=100 src="src/pap.PNG">
+    </div>
+
+    <script>
+        $(".choise").click(function() {
+            $(".flip-card-inner").css("transform", "rotateY(180deg)");
+        });
+    </script>
+</body>
