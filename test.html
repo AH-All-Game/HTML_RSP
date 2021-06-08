@@ -181,7 +181,7 @@
                     document.getElementById("winText").innerText = "승리";
                     document.getElementById("winCount").innerText = ++winCount;
                     
-                    if (winCount % 2 == 0) {
+                    if (winCount % 1 == 0) {
                         ++myHp;
                         document.getElementById("hp").innerText = "💖".repeat(myHp) + "💔".repeat(3-myHp);
                     }
