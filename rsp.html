@@ -124,4 +124,9 @@
         <img class="choise" id="roc" onclick="rsp(1)" src="src/rock.PNG">
         <img class="choise" id="pap" onclick="rsp(2)" hspace=100 src="src/pap.PNG">
     </div>
+    <script>
+        $(".choise").click(function() {
+            $(".flip-card-inner").css("transform", "rotateY(180deg)");
+        });
+    </script>
 </body>
