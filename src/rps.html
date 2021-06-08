@@ -5,16 +5,14 @@
     <link rel='stylesheet' id='fontawesome-css' href='https://use.fontawesome.com/releases/v5.0.1/css/all.css?ver=4.9.1' type='text/css' media='all' />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://tistory4.daumcdn.net/tistory/3134841/skin/images/confetti_v2.js"></script>
-    <script src="main.js"></script>
+    <script src="src/main.js"></script>
     <meta property="og:description" content="Snakely | 게임제작과 올겜">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="http://elif.team/ahyeon/snakely/logo_284x284.png">
-    <!--
-    <link rel="manifest" href="http://elif.team/ahyeon/snakely/manifest.json">
-    -->
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="http://elif.team/ahyeon/snakely/bb3dde41d97f19be8ab7b4780a915d5e.css" defer="">
     <style>
         canvas {
@@ -101,8 +99,8 @@
     <!-- 음악 플레이어 -->
 
     <div class="music_player" style="text-align: right;">
-        <img src="play.png" onclick="stop()" class="music" id="play" style="display: none;">
-        <img src="stop.png" onclick="play()" class="music" id="stop" style="display: inline;">
+        <img src="src/play.png" onclick="stop()" class="music" id="play" style="display: none;">
+        <img src="src/stop.png" onclick="play()" class="music" id="stop" style="display: inline;">
     </div>
 
     <!-- 게임 화면 -->
@@ -124,9 +122,9 @@
 
         
 
-        <img class="choise" id="sci" onclick="rsp(0)" hspace=100 src="sci.PNG">
-        <img class="choise" id="roc" onclick="rsp(1)" src="rock.PNG">
-        <img class="choise" id="pap" onclick="rsp(2)" hspace=100 src="pap.PNG">
+        <img class="choise" id="sci" onclick="rsp(0)" hspace=100 src="src/sci.PNG">
+        <img class="choise" id="roc" onclick="rsp(1)" src="src/rock.PNG">
+        <img class="choise" id="pap" onclick="rsp(2)" hspace=100 src="src/pap.PNG">
     </div>
 
     <script>
