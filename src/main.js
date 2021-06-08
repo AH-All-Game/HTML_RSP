@@ -2,9 +2,9 @@ let gameFinish = false; // 게임 종료 확인
 let winCount = 0; // 승tn
 let myHp = 3; //체력
 let list = [
-    "sci.PNG",
-    "rock.PNG",
-    "pap.PNG"
+    "src/sci.PNG",
+    "src/rock.PNG",
+    "src/pap.PNG"
 ]; // 가위 바위 보 이미지
 let audio = new Audio('https://www.bensound.com/bensound-music/bensound-funkyelement.mp3'); //https://www.sellbuymusic.com/upload/music/0000000369/584622080769205.mp3
 audio.loop = true;
@@ -53,7 +53,6 @@ function rsp(myChoise) {
             }, 1000);
 
             $("#startButton").trigger("click");
-
             setTimeout(function(){
                 $("#stopButton").trigger("click");
             }, 2000);
