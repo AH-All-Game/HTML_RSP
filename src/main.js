@@ -47,10 +47,16 @@ function rsp(myChoise) {
 
         } else if (win === 1 || win === -2) {
 
+            $("#startButton").trigger("click");
+
             setTimeout(function() {
                 $(".flip-card-inner").css("transform", "rotateY(-180deg)");
                 document.getElementById("bot").src = "https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif";
             }, 1000);
+
+            setTimeout(function(){
+                $("#stopButton").trigger("click");
+            }, 2000);
 
             document.getElementById("winText").innerText = "승리";
             document.getElementById("winCount").innerText = ++winCount;
