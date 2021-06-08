@@ -1,8 +1,6 @@
-
 <!DOCTYPE html>
 
 <head>
-
     <meta charset="utf-8">
     <link rel='stylesheet' id='fontawesome-css' href='https://use.fontawesome.com/releases/v5.0.1/css/all.css?ver=4.9.1' type='text/css' media='all' />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -76,42 +74,45 @@
             color: white;
             transform: rotateY(180deg);
         }
-
     </style>
-
 </head>
     
-<body  style="background-color: cornflowerblue;">
+<body style="background-color: cornflowerblue;">
 
+    <!-- 승리 폭죽 -->
+    
     <div class="buttonContainer" style="display:none">
         <button class="canvasBtn" id="stopButton"></button>
         <button class="canvasBtn" id="startButton"></button>	
     </div>
-    
+
     <canvas id="canvas" width="449" height="760"></canvas>
+
+    <!-- 음악 플레이어 -->
 
     <div class="music_player" style="text-align: right;">
         <img src="play.png" onclick="stop()" class="music" id="play" style="display: none;">
         <img src="stop.png" onclick="play()" class="music" id="stop" style="display: inline;">
     </div>
 
-    <div style="text-align: center;">
+    <!-- 게임 화면 -->
 
+    <div style="text-align: center;">
         <h3>[ <span id="winCount">0</span>승 ] - <span id="hp">💖💖💖</span></h3> 
         <h1>상태: <span id="winText">없음</span></h1>
 
         <div class="flip-card">
             <div class="flip-card-inner">
-              <div class="flip-card-front">
-                <img class="bot" id="bot_ready" src="https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif">
-              </div>
-              <div class="flip-card-back">
-                <img class="bot" id="bot" src="https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif">
-              </div>
+                <div class="flip-card-front">
+                    <img class="bot" id="bot_ready" src="https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif">
+                </div>
+                <div class="flip-card-back">
+                    <img class="bot" id="bot" src="https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif">
+                </div>
             </div>
         </div>
-        
-        <br><br><br>
+
+        <br><br><br> 
 
         <img class="choise" id="sci" onclick="rsp(0)" hspace=100 src="sci.PNG">
         <img class="choise" id="roc" onclick="rsp(1)" src="rock.PNG">
