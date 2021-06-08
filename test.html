@@ -165,7 +165,7 @@
                     document.getElementById("winText").innerText = "패배";
 
                     if (myHp > 3) {
-                        document.getElementById("hp").innerText = "💖" + "💛".repeat(3-myHp);
+                        document.getElementById("hp").innerText = "💖".repeat(3) + "💛".repeat(3-myHp);
                     } else {
                         document.getElementById("hp").innerText = "💖".repeat(myHp) + "💔".repeat(3-myHp);   
                     }
@@ -188,7 +188,7 @@
                     if (winCount % 1 == 0) {
                         ++myHp;
                         if (myHp > 3) {
-                            document.getElementById("hp").innerText = "💖" + "💛".repeat(3-myHp);
+                            document.getElementById("hp").innerText = "💖".repeat(3) + "💛".repeat(3-myHp);
                         } else {
                             document.getElementById("hp").innerText = "💖".repeat(myHp) + "💔".repeat(3-myHp);   
                         }
