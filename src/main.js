@@ -9,10 +9,6 @@ let list = [
 let audio = new Audio('https://www.bensound.com/bensound-music/bensound-funkyelement.mp3'); //https://www.sellbuymusic.com/upload/music/0000000369/584622080769205.mp3
 audio.loop = true;
 
-$(".choise").click(function() {
-    $(".flip-card-inner").css("transform", "rotateY(180deg)");
-});
-
 function rsp(myChoise) {
 
     if (!gameFinish) {
