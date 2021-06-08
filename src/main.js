@@ -2,9 +2,9 @@ let gameFinish = false; // 게임 종료 확인
 let winCount = 0; // 승tn
 let myHp = 3; //체력
 let list = [
-    "src/sci.PNG",
-    "src/rock.PNG",
-    "src/pap.PNG"
+    "assets/sci.PNG",
+    "assets/rock.PNG",
+    "assets/pap.PNG"
 ]; // 가위 바위 보 이미지
 let audio = new Audio('https://www.bensound.com/bensound-music/bensound-funkyelement.mp3'); //https://www.sellbuymusic.com/upload/music/0000000369/584622080769205.mp3
 audio.loop = true;
@@ -27,10 +27,7 @@ function rsp(myChoise) {
 
             --myHp;
 
-            setTimeout(function() {
-                $(".flip-card-inner").css("transform", "rotateY(-180deg)");
-                document.getElementById("bot").src = "https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif";
-            }, 1000);
+            rotate();
 
             document.getElementById("winText").innerText = "패배";
 
@@ -47,10 +44,7 @@ function rsp(myChoise) {
 
         } else if (win === 1 || win === -2) {
 
-            setTimeout(function() {
-                $(".flip-card-inner").css("transform", "rotateY(-180deg)");
-                document.getElementById("bot").src = "https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif";
-            }, 1000);
+            rotate();
 
             $("#startButton").trigger("click");
             setTimeout(function(){
@@ -70,16 +64,20 @@ function rsp(myChoise) {
             }
 
         } else {
-            setTimeout(function() {
-                $(".flip-card-inner").css("transform", "rotateY(-180deg)");
-                document.getElementById("bot").src = "https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif";
-            }, 1000);
+            rotate();
             document.getElementById("winText").innerText = "무승부";
         }
 
     } else {
         alert("[E1] 게임이 종료되었습니다.");
     }
+}
+
+function rotate() {
+    setTimeout(function() {
+        $(".flip-card-inner").css("transform", "rotateY(-180deg)");
+        document.getElementById("bot").src = "https://i.pinimg.com/originals/0a/35/d6/0a35d69430d0a2f52d91d4a0010bf870.gif";
+    }, 1000);
 }
 
 function endGame() {
