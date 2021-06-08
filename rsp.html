@@ -1,113 +1,263 @@
-<head><meta charset="utf-8">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="https://tistory4.daumcdn.net/tistory/3134841/skin/images/confetti_v2.js"></script>
+<!DOCTYPE html>
 
-<style>
-	canvas{z-index:10;pointer-events: none;position: fixed;top: 0;transform: scale(1.1);}
-</style>
+<head>
 
-</head><body style=""><div class="buttonContainer" style="display:none">
-	<button class="canvasBtn" id="stopButton"></button>
-	<button class="canvasBtn" id="startButton"></button>	
-</div>
-
-<canvas id="canvas" width="449" height="760"></canvas>
-
-	<h3>[ <span id="winCount">0</span>연승 ]</h3> 
-	<pre><h1>상태: <span id="winText">없음</span></h1>
-	</pre>
-
-	<pre>
-	<h1>      나          상대</h1>
-	</pre>
-
-	<img id="me" style="width:200px; height:200px; border:2px dashed blue; float:left; margin-right:10px;" src="https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif"> 
-
-	<img id="bot" style="width:200px; height:200px; border:2px dashed red; float:left; margin-right:10px;" src="https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif">
-
-	<div id="buttons" style="display: inline;">
-	    <button onclick="rsp(0)" style="width:60pt;height:30pt;"><b>가위</b></button>
-	    <br>
-	    <br>
-	    <br>
-	    <button onclick="rsp(1)" style="width:60pt;height:30pt;"><b>바위</b></button>
-	    <br>
-	    <br>
-	    <br>
-	    <button onclick="rsp(2)" style="width:60pt;height:30pt;"><b>보</b></button>
-</div>
-	
-<script>
-    let gameFinish = false;  // 게임 종료 확인
-    let gameScore, winCount = 0;  // 점수 및 연승
-    let list = [
-        "https://i.ibb.co/QF8z8Q6/871488.jpg", 
-        "https://i.ibb.co/wW8yQhw/871488.jpg", 
-        "https://i.ibb.co/Ykds2fx/image.jpg"
-    ]; // 가위 바위 보 이미지
-
-    function rsp(myChoise) { 
-
-        if(!gameFinish) {
-
-            let bot = Math.floor(Math.random() * 3);
-
-            document.getElementById("me").src = list[myChoise]; 
-            document.getElementById("bot").src = list[bot];
-
-            let win = myChoise - bot;
-
-            if (win === -1 || win === 2) {
-
-                gameFinish = true;
-                document.getElementById("winText").innerText = "패배";
-                document.getElementById("buttons").style = "display:none;";
-                setTimeout(() => endGame(), 1000);
-
-            } else if (win === 1 || win === -2) {
-
-                $("#startButton").trigger("click");
-                setTimeout(function(){
-                    $("#stopButton").trigger("click");
-                }, 2000);
-                document.getElementById("winText").innerText = "승리";
-                document.getElementById("winCount").innerText = ++winCount;
-
-            } else document.getElementById("winText").innerText = "무승부";
-
-        } else {
-            alert("[E1] 게임이 종료되었습니다.");
+    <meta charset="utf-8">
+    <link rel='stylesheet' id='fontawesome-css' href='https://use.fontawesome.com/releases/v5.0.1/css/all.css?ver=4.9.1' type='text/css' media='all' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://tistory4.daumcdn.net/tistory/3134841/skin/images/confetti_v2.js"></script>
+    <style>
+        canvas {
+            z-index:10;
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            transform: scale(1.1);
         }
-    } 
 
-    function endGame() {
-        if (confirm("게임 종료!\n[" + winCount + "연승]\n\n순위에 등록 하시겠습니까?")) {
-            rankSave();
-        } else location.href = "./rsp.html";
-    }
+        .music {
+            width: 40px;
+            height: 40px;
+            transform-origin: 50% 50%;
+        }
 
-    function rankSave() {
-        let nickname = prompt("닉네임을 입력하세요.", "");
-        if (nickname) {
-            xhr = new XMLHttpRequest();
-            xhr.open("post", "saveData.php", true);
-            xhr.onreadystatechange = function() { //폴백
-                if (xhr.readyState == 4) {
-                    if (xhr.status == 200) {
-                        alert(xhr.responseText);
-                        location.href = "./rsp.html";
-                    } else {
-                        alert("서버오류 : " + xhr.status);
-                        location.href = "./rsp.html";
+        img.bot {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+            border:2px dashed blue;
+        }
+
+        img.choise {
+            width: 90px;
+            height: 90px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+            border:2px dashed rgb(0, 0, 0);
+        }
+
+        .flip-card {
+            text-align: center;
+            margin: auto;
+            width: 300px;
+            height: 200px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.3s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .flip-card-front {
+            background-color: transparent;
+            color: rgb(255, 255, 255);
+        }
+
+        .flip-card-back {
+            background-color: transparent;
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+    </style>
+
+</head>
+    
+<body>
+
+    <div class="buttonContainer" style="display:none">
+        <button class="canvasBtn" id="stopButton"></button>
+        <button class="canvasBtn" id="startButton"></button>	
+    </div>
+    
+    <canvas id="canvas" width="449" height="760"></canvas>
+
+
+
+    <h3>[ <span id="winCount">0</span>연승 ]</h3> 
+
+    <div class="music_player" style="text-align: right;">
+        <img src="play.png" onclick="stop()" class="music" id="play" style="display: none;">
+        <img src="stop.png" onclick="play()" class="music" id="stop" style="display: inline;">
+    </div>
+    
+    <pre><h1>상태: <span id="winText">없음</span></h1>
+    </pre>
+
+    <div style="text-align: center;">
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img class="bot" id="bot_ready" src="https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif">
+              </div>
+              <div class="flip-card-back">
+                <img class="bot" id="bot" src="https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif">
+              </div>
+            </div>
+        </div>
+        
+        <br><br><br>
+
+        <img class="choise" id="sci" onclick="rsp(0)" hspace=100 src="https://i.ibb.co/QF8z8Q6/871488.jpg">
+        <img class="choise" id="roc" onclick="rsp(1)" src="https://i.ibb.co/wW8yQhw/871488.jpg">
+        <img class="choise" id="pap" onclick="rsp(2)" hspace=100 src="https://i.ibb.co/Ykds2fx/image.jpg">
+
+    </div>
+    
+    <div id="buttons" style="display: inline;">
+
+    </div>
+        
+    <script>
+
+        $(".choise").click(function() {
+            $(".flip-card-inner").css("transform", "rotateY(180deg)");
+        });
+
+
+        let gameFinish = false;  // 게임 종료 확인
+        let gameScore, winCount = 0;  // 점수 및 연승
+        let list = [
+            "https://i.ibb.co/QF8z8Q6/871488.jpg", 
+            "https://i.ibb.co/wW8yQhw/871488.jpg", 
+            "https://i.ibb.co/Ykds2fx/image.jpg"
+        ]; // 가위 바위 보 이미지
+    
+        
+
+        function rsp(myChoise) { 
+    
+            if(!gameFinish) {
+    
+                let bot = Math.floor(Math.random() * 3);
+    
+                document.getElementById("bot").src = list[bot];
+    
+                let win = myChoise - bot;
+    
+                if (win === -1 || win === 2) {
+    
+                    gameFinish = true;
+                    document.getElementById("winText").innerText = "패배";
+                    document.getElementById("buttons").style = "display:none;";
+                    setTimeout(() => endGame(), 1000);
+    
+                } else if (win === 1 || win === -2) {
+    
+                    $("#startButton").trigger("click");
+                    setTimeout(function(){
+                        $("#stopButton").trigger("click");
+                    }, 2000);
+
+                    document.getElementById("winText").innerText = "승리";
+                    document.getElementById("winCount").innerText = ++winCount;
+
+                    setTimeout(function(){
+                        $(".flip-card-inner").css("transform", "rotateY(-180deg)");
+                        document.getElementById("bot").src = "https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif";
+                    }, 1000);
+    
+                } else {
+                    document.getElementById("winText").innerText = "무승부";
+                    
+                    setTimeout(function(){
+                        $(".flip-card-inner").css("transform", "rotateY(-180deg)");
+                        document.getElementById("bot").src = "https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif";
+                    }, 1000);
+                }
+    
+            } else {
+                alert("[E1] 게임이 종료되었습니다.");
+            }
+        } 
+
+        function endGame() {
+            if (confirm("게임 종료!\n[" + winCount + "연승]\n\n순위에 등록 하시겠습니까?")) {
+                rankSave();
+            } else {
+                winCount = 0;
+                gameScore = 0;
+                gameFinish = false;
+                document.getElementById("bot").src = "https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif";
+                document.getElementById("winText").innerText = "없음";
+                document.getElementById("winCount").innerText = "0";
+                document.getElementById("buttons").style = "display:inline;";
+            };
+        }
+    
+        function rankSave() {
+            let nickname = prompt("닉네임을 입력하세요.", "");
+            if (nickname) {
+                xhr = new XMLHttpRequest();
+                xhr.open("post", "saveData.php", true);
+                xhr.onreadystatechange = function() { //폴백
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            alert(xhr.responseText);
+                            winCount = 0;
+                            gameScore = 0;
+                            gameFinish = false;
+                            document.getElementById("bot").src = "https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif";
+                            document.getElementById("winText").innerText = "없음";
+                            document.getElementById("winCount").innerText = "0";
+                            document.getElementById("buttons").style = "display:inline;";
+                        } else {
+                            alert("서버오류 : " + xhr.status);
+                            winCount = 0;
+                            gameScore = 0;
+                            gameFinish = false;
+                            document.getElementById("bot").src = "https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif";
+                            document.getElementById("winText").innerText = "없음";
+                            document.getElementById("winCount").innerText = "0";
+                            document.getElementById("buttons").style = "display:inline;";
+                        }
                     }
                 }
+                //post방식은 xhr객체에 데이터를 붙여서 전송
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("nickname=" + nickname + "&winCount=" + winCount); 
+            } else {
+                winCount = 0;
+                gameScore = 0;
+                gameFinish = false;
+                document.getElementById("bot").src = "https://cdn.dribbble.com/users/479985/screenshots/10777708/media/af7ad2e66c16511f21b3f42718f211d2.gif";
+                document.getElementById("winText").innerText = "없음";
+                document.getElementById("winCount").innerText = "0";
+                document.getElementById("buttons").style = "display:inline;";
             }
-            //post방식은 xhr객체에 데이터를 붙여서 전송
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.send("nickname=" + nickname + "&winCount=" + winCount); 
-        } else {
-            location.href = "./rsp.html";
         }
-    }
-</script></body>
+
+        var audio = new Audio('https://www.sellbuymusic.com/upload/music/0000000369/584622080769205.mp3');
+        audio.loop = true;
+
+        function play() {
+            audio.play();
+            document.getElementById("play").style = "display: inline;";
+            document.getElementById("stop").style = "display: none;";
+        }
+
+        function stop() {
+            audio.pause();
+            document.getElementById("play").style = "display: none;";
+            document.getElementById("stop").style = "display: inline;";
+        }
+    </script>
+</body>
